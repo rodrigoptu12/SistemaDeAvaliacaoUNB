@@ -13,18 +13,18 @@
     </form>
     <table>
       <tr>
-          <th>Id</th>
-          <th>Nome</th>
-          <th>Email</th>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Email</th>
       </tr>
       {% for estudante in estudantes %}
       <tr>
-          <td>{{ estudante.id }}</td>
-          <td>{{ estudante.nome }}</td>
-          <td>{{ estudante.email }}</td>
+        <td>{{ estudante.id }}</td>
+        <td>{{ estudante.nome }}</td>
+        <td>{{ estudante.email }}</td>
       </tr>
       {% endfor %}
-  </table>
+    </table>
     <!-- Formulário para criar um novo estudante -->
     <h2>Criar novo estudante</h2>
     <form method="POST" action="/estudantes">
@@ -46,7 +46,7 @@
       <button type="submit">Criar Estudante</button>
     </form>
     {% if mensagem %}
-        <p>{{ mensagem }}</p>
+    <p>{{ mensagem }}</p>
     {% endif %}
     <!-- Formulário para atualizar um estudante existente -->
     <h2>Atualizar estudante</h2>
@@ -74,11 +74,17 @@
 
     <!-- Formulário para excluir um estudante existente -->
     <h2>Excluir estudante</h2>
-    <form method="DELETE" action="/estudantes">
+    <p>Para excluir um estudante, digite o ID do estudante.</p>
+    <!-- Rota para /estudantes/id -->
+    <!-- colocar id no path -->
+    <form method="DELETE" action="/estudantes/ ">
       <label for="id_excluir">ID do Estudante:</label>
       <input type="text" id="id_excluir" name="id" required />
       <br />
       <button type="submit">Excluir Estudante</button>
     </form>
+    {% if mensagem %}
+    <p>{{ mensagem }}</p>
+    {% endif %}
   </body>
 </html>

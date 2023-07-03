@@ -2,7 +2,7 @@
 CREATE TABLE Departamentos (id INT PRIMARY KEY, nome VARCHAR(100));
 
 CREATE TABLE Estudantes (
-    id INT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nome VARCHAR(100),
     email VARCHAR(100),
     matricula VARCHAR(20),

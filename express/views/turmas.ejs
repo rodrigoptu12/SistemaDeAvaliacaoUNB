@@ -1,0 +1,46 @@
+<!-- estudantes.html -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Estudantes</title>
+    <link rel="stylesheet" href="/styles/turmas.css" />
+  </head>
+
+  <body>
+    <div class="header">
+      <a href="/" class="logo">Avaliações UNB</a>
+      <div class="header-right">
+        <a href="/disciplinas">Disciplina</a>
+        <a href="/estudantes">Estudante</a>
+        <a href="/departamentos">Departamento</a>
+      </div>
+    </div>
+    <div class="container">
+      <!-- Se apertar o botão gere a lista de estudantes -->
+      <button class="buttonG" id="botao">Gerar Lista</button>
+      <script>
+        document.getElementById("botao").onclick = function () {
+          location.href = "/disciplinas";
+        };
+      </script>
+      <div class="containerCard">
+        <% if (disciplinas && disciplinas.length > 0) { %> <%
+        disciplinas.forEach(function(disciplina) { %>
+        <form action="">
+          <input type="hidden" name="turma_id" value="<%= disciplina.id %>" />
+          <button type="submit" class="card button">
+            <strong>Code:</strong> <%= disciplina.disciplina_id %><br />
+            <strong>Nome:</strong> <%= disciplina.nome_disciplina %><br />
+            <strong>Professor:</strong> <%= disciplina.nome_professor %><br />
+            <!-- periodo -->
+            <strong>Periodo:</strong> <%= disciplina.periodo %><br />
+          </button>
+        </form>
+        <% }); %> <% } else { %>
+        <p>Nenhuma disciplina encontrada.</p>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>

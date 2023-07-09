@@ -1,0 +1,69 @@
+<!-- departamentos.html -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Departamentos</title>
+    <link rel="stylesheet" href="/styles/departamentos.css" />
+  </head>
+
+  <body>
+    <div class="header">
+      <a href="/" class="logo">Avaliações UNB</a>
+      <div class="header-right">
+        <a href="/disciplinas">Disciplina</a>
+        <a href="/estudantes">Estudante</a>
+        <a href="/departamentos">Departamento</a>
+      </div>
+    </div>
+    <!-- mensagem -->
+    <p><%= mensagem %></p>
+
+    <h1>Lista de Departamentos</h1>
+    <div class="conteiner">
+      <div class="form-container">
+        <form method="POST" action="/departamentos/update">
+          <label for="id_atualizar_">ID:</label>
+          <input type="text" name="id" required />
+          <label for="nome_atualizar_">Nome:</label>
+          <input type="text" id="nome_atualizar_" name="nome" required />
+          <button type="submit">Atualizar</button>
+        </form>
+        <form method="POST" action="/departamentos/delete">
+          <label for="id_excluir_">ID:</label>
+          <input type="text" name="id" required />
+          <button type="submit">Excluir</button>
+        </form>
+        <form method="POST" action="/departamentos">
+          <label for="id">ID do Departamento:</label>
+          <input type="text" id="id" name="id" required />
+          <br />
+          <label for="nome">Nome do Departamento:</label>
+          <input type="text" id="nome" name="nome" required />
+          <br />
+          <button type="submit">Criar Departamento</button>
+        </form>
+      </div>
+      <div class="table-container">
+        <!-- Se apertar o botão gere a lista de estudantes -->
+        <button id="botao">Gerar Lista</button>
+        <script>
+          document.getElementById("botao").onclick = function () {
+            location.href = "/departamentos";
+          };
+        </script>
+        <ul>
+          <% if (departamentos && departamentos.length > 0) { %> <%
+          departamentos.forEach(function(departamento) { %>
+          <li>
+            <strong>ID:</strong> <%= departamento.id %><br />
+            <strong>Nome:</strong> <%= departamento.nome %><br />
+          </li>
+          <% }); %> <% } else { %>
+          <li>Nenhum departamento encontrado.</li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

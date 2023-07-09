@@ -7,33 +7,42 @@ CREATE TABLE Estudantes (
     email VARCHAR(100),
     matricula VARCHAR(20),
     curso VARCHAR(50),
-    senha VARCHAR(50)
+    senha VARCHAR(50),
+    isAdmin BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE Professores (
-    id INT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nome VARCHAR(100),
     departamento_id INT,
     FOREIGN KEY (departamento_id) REFERENCES Departamentos(id)
 );
 
 CREATE TABLE Disciplinas (
-    id INT PRIMARY KEY,
+    id VARCHAR(20) PRIMARY KEY,
     nome VARCHAR(100),
     departamento_id INT,
     FOREIGN KEY (departamento_id) REFERENCES Departamentos(id)
 );
 
 CREATE TABLE Turmas (
-    id INT PRIMARY KEY,
-    disciplina_id INT,
+    id SERIAL PRIMARY KEY,
+    turma INT,
+    periodo VARCHAR(20),
+    horario VARCHAR(50),
+    vagasOcupadas INT,
+    totalVagas INT,
+    local_ VARCHAR(50),
+    departamento_id INT,
+    disciplina_id VARCHAR(20),
     professor_id INT,
+    FOREIGN KEY (departamento_id) REFERENCES Departamentos(id),
     FOREIGN KEY (disciplina_id) REFERENCES Disciplinas(id),
     FOREIGN KEY (professor_id) REFERENCES Professores(id)
 );
 
 CREATE TABLE Avaliacoes (
-    id INT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     estudante_id INT,
     turma_id INT,
     comentario TEXT,
@@ -42,7 +51,7 @@ CREATE TABLE Avaliacoes (
 );
 
 CREATE TABLE Denuncias (
-    id INT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     estudante_id INT,
     avaliacao_id INT,
     motivo VARCHAR(100),

@@ -2,7 +2,7 @@
 
 const express = require("express");
 const router = express.Router();
-const pool = require("./db"); // Importa o pool do módulo db.js
+const pool = require("../db"); // Importa o pool do módulo db.js
 
 router.get("/estudantes", (req, res) => {
   const query = "SELECT * FROM estudantes";
@@ -34,7 +34,10 @@ router.post("/estudantes", (req, res) => {
       });
     }
   });
+  // Redireciona para a página de estudantes
+  res.redirect("/estudantes");
 });
+
 // Atualizar estudante
 router.post("/estudantes/update", (req, res) => {
   const { id, nome, email, matricula, curso, senha } = req.body;
@@ -51,7 +54,7 @@ router.post("/estudantes/update", (req, res) => {
       }
 
       if (result.rowCount > 0) {
-        return res.json({ mensagem: "Estudante atualizado com sucesso!" });
+        return res.redirect("/estudantes");
       } else {
         return res.json({ mensagem: "Estudante não encontrado." });
       }
@@ -68,9 +71,8 @@ router.post("/estudantes/delete", (req, res) => {
       console.error(err);
       return res.json({ mensagem: "Falha ao remover o estudante." });
     }
-
     if (result.rowCount > 0) {
-      return res.json({ mensagem: "Estudante removido com sucesso!" });
+      return res.redirect("/estudantes");
     } else {
       return res.json({ mensagem: "Estudante não encontrado." });
     }

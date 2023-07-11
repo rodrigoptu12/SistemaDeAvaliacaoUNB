@@ -45,7 +45,7 @@ module.exports = {
         const token = jwt.sign({ userId }, "seu_secreto", { expiresIn: "1h" });
 
         res.setHeader("Set-Cookie", `jwtToken=${token}`);
-        res.send("Login successful"); // Send a success response
+        return res.redirect("/");
       } else {
         // As credenciais estão incorretas
         res.status(401).json({ error: "Credenciais inválidas" });
@@ -56,28 +56,11 @@ module.exports = {
     }
   },
 
-  isAuthenticated: function (req, res, next) {
-    passport.authenticate(
-      "jwt",
-      { session: false },
-      function (err, user, info) {
-        if (err) {
-          console.error(err);
-          return next(err);
-        }
-        if (!user) {
-          return res.status(401).json({ error: "Acesso não autorizado" });
-        }
-        req.user = user;
-        next();
-      }
-    )(req, res, next);
-  },
   // Função do middleware para definir o cabeçalho "Authorization" com o token JWT do cookie e autenticar com Passport
-  setAuthorizationHeaderAndAuthenticate: function (req, res, next) {
+
+  isAuthenticated: function (req, res, next) {
     const token = req.cookies.jwtToken; // Obtenha o token JWT do cookie
     req.headers["authorization"] = "Bearer " + token; // Defina o cabeçalho "Authorization" com o token JWT
-
     // Autenticar com Passport
     passport.authenticate(
       "jwt",
@@ -88,8 +71,14 @@ module.exports = {
           return next(err);
         }
         if (!user) {
-          return res.status(401).json({ error: "Acesso não autorizado" });
+          // redirect to login page
+          // se tiver na /, não redireciona
+          if (req.path === "/"){
+            return next();
+          }
+          return res.redirect("/");
         }
+
         req.user = user;
         next();
       }

@@ -28,7 +28,7 @@
 
 -- visualizar estudantes
 -- SELECT * FROM Estudantes;
-SELECT * FROM Estudantes WHERE id = 2
+SELECT * FROM Estudantes 
 -- -- visualizar todos linhas de todas tabelas
 -- SELECT * FROM information_schema.tables;
 

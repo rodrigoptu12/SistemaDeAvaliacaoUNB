@@ -15,7 +15,7 @@ Certifique-se de ter as seguintes ferramentas instaladas em seu ambiente de dese
 
 2. Acesse o diretório do projeto:
 
-    cd express
+        cd express
 
 3. Instale as dependências do projeto:
     

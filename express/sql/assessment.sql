@@ -24,7 +24,7 @@ CREATE TABLE Departamento (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100),
     departamento_id INT,
-    FOREIGN KEY (departamento_id) REFERENCES Departamento(id)
+    FOREIGN KEY (departamento_id) REFERENCES Departamento(id) ON DELETE CASCADE
 );
 
 -- Verificar se a tabela Disciplinas existe e, se sim, excluí-la
@@ -35,7 +35,7 @@ CREATE TABLE Disciplinas (
     id VARCHAR(20) PRIMARY KEY,
     nome VARCHAR(100),
     departamento_id INT,
-    FOREIGN KEY (departamento_id) REFERENCES Departamento(id)
+    FOREIGN KEY (departamento_id) REFERENCES Departamento(id) ON DELETE CASCADE
 );
 
 -- Verificar se a tabela Professores existe e, se sim, excluí-la
@@ -46,7 +46,7 @@ CREATE TABLE Professores (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100),
     departamento_id INT,
-    FOREIGN KEY (departamento_id) REFERENCES Departamento(id)
+    FOREIGN KEY (departamento_id) REFERENCES Departamento(id) ON DELETE CASCADE
 );
 
 -- Verificar se a tabela Turmas existe e, se sim, excluí-la
@@ -64,9 +64,9 @@ CREATE TABLE Turmas (
     departamento_id INT,
     disciplina_id VARCHAR(20),
     professor_id INT,
-    FOREIGN KEY (departamento_id) REFERENCES Departamento(id),
-    FOREIGN KEY (disciplina_id) REFERENCES Disciplinas(id),
-    FOREIGN KEY (professor_id) REFERENCES Professores(id)
+    FOREIGN KEY (departamento_id) REFERENCES Departamento(id) ON DELETE CASCADE,
+    FOREIGN KEY (disciplina_id) REFERENCES Disciplinas(id) ON DELETE CASCADE,
+    FOREIGN KEY (professor_id) REFERENCES Professores(id) ON DELETE CASCADE
 );
 
 -- Verificar se a tabela Avaliacoes existe e, se sim, excluí-la
@@ -79,8 +79,8 @@ CREATE TABLE Avaliacoes (
     turma_id INT,
     comentario TEXT,
     nota INT,
-    FOREIGN KEY (estudante_id) REFERENCES Estudantes(id),
-    FOREIGN KEY (turma_id) REFERENCES Turmas(id)
+    FOREIGN KEY (estudante_id) REFERENCES Estudantes(id) ON DELETE CASCADE,
+    FOREIGN KEY (turma_id) REFERENCES Turmas(id) ON DELETE CASCADE
 );
 
 -- Verificar se a tabela Denuncias existe e, se sim, excluí-la
@@ -93,8 +93,8 @@ CREATE TABLE Denuncias (
     avaliacao_id INT,
     motivo VARCHAR(100),
     avaliado BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (estudante_id) REFERENCES Estudantes(id),
-    FOREIGN KEY (avaliacao_id) REFERENCES Avaliacoes(id)
+    FOREIGN KEY (estudante_id) REFERENCES Estudantes(id) ON DELETE CASCADE,
+    FOREIGN KEY (avaliacao_id) REFERENCES Avaliacoes(id) ON DELETE CASCADE
 );
 
 -- Finaliza a transação

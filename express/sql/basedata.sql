@@ -7,7 +7,7 @@ INSERT INTO
 VALUES
   (
     'João Silva',
-    'joao.silva@example.com',
+    'teste@teste.com',
     '20210001',
     'Engenharia',
     '123456',

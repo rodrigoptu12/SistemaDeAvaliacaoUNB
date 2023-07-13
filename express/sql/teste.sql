@@ -1,2 +1,4 @@
--- call procedure
-CALL "AtualizarMediaNotas"();
+-- apagar estudante com id 6 e sua depentes (CASCADE)
+
+DELETE 
+

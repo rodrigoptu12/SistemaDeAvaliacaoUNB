@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const passport = require("passport");
 // const cookieParser = require("cookie-parser");
-const pool = require("../db"); // Importa o pool do módulo db.js
+const pool = require("../configDB"); // Importa o pool do módulo db.js
 
 const jwtOptions = {
   secretOrKey: "seu_secreto",
@@ -35,7 +35,7 @@ module.exports = {
       const { username, password } = req.body;
 
       // Verifique as credenciais do usuário no banco de dados
-      const query = "SELECT * FROM Estudantes WHERE nome = $1 AND senha = $2";
+      const query = "SELECT * FROM Estudantes WHERE email = $1 AND senha = $2";
       const values = [username, password];
       const result = await pool.query(query, values);
 

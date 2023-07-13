@@ -1,0 +1,99 @@
+<!-- departamentos.html -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Avaliações</title>
+    <link rel="stylesheet" href="/styles/avaliacao.css" />
+    <style></style>
+  </head>
+
+  <body>
+    <div class="header">
+      <div>
+        <a href="/" class="logo">Avaliações UNB</a>
+      </div>
+      <div class="header-right">
+        <a href="/turmas">Turmas</a>
+        <a href="/estudantes">Estudante</a>
+        <a href="/departamentos">Departamento</a>
+        <a href="/perfil">Perfil</a>
+        <a href="/logout">Logout</a>
+      </div>
+    </div>
+
+    <div class="container">
+      <h1>Lista de Avaliações</h1>
+      <div class="form-container">
+        <form method="POST" action="/turmas/<%= turma_id %>/avaliacoes">
+          <label for="descricao">Descrição:</label>
+          <input type="text" id="descricao" name="descricao" required />
+          <br />
+          <label for="nota">Nota:</label>
+          <input type="number" id="nota" name="nota" min="0" max="5" required />
+          <br />
+          <input
+            type="text"
+            id="turma_id"
+            name="turma_id"
+            value="<%= turma_id %>"
+            hidden
+          />
+          <br />
+          <input
+            type="text"
+            id="estudante_id"
+            name="estudante_id"
+            value="<%= user.id %>"
+            hidden
+          />
+          <br />
+          <button type="submit">Adicionar Avaliação</button>
+        </form>
+      </div>
+      <% if (avaliacoes.length) { %> <% avaliacoes.forEach(function(avaliacao) {
+      %>
+      <div class="avaliacao-item">
+        <div>
+          <div class="nome-aluno"><%= avaliacao.nome_aluno %></div>
+          <div class="descricao"><%= avaliacao.descricao %></div>
+          <div class="comentario"><%= avaliacao.comentario %></div>
+          <div class="nota">Nota: <%= avaliacao.nota %></div>
+        </div>
+        <!-- apenas se o id do user for igual ao id da avaliação -->
+        <% if (user.id == avaliacao.estudante_id) { %>
+
+        <button
+          class="red-button"
+          onclick="deleteAvaliacao('<%= avaliacao.id %>')"
+        >
+          Deletar
+        </button>
+        <% } %>
+      </div>
+      <% }) %> <% } else { %>
+      <p>Não há avaliações cadastradas.</p>
+      <% } %>
+    </div>
+    <script>
+      function deleteAvaliacao(avaliacao_id) {
+        // Obtenha o valor do parâmetro 'id' necessário para a rota
+        const id = "<%= turma_id %>";
+
+        // Crie a rota para redirecionar
+        const rota = `/turmas/${id}/avaliacoes/${avaliacao_id}`;
+
+        fetch(rota, { method: "DELETE" })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Falha ao deletar avaliação.");
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        window.location.href = `/turmas/${id}/avaliacoes`;
+      }
+    </script>
+  </body>
+</html>

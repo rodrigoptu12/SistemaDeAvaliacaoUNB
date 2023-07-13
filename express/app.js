@@ -5,7 +5,8 @@ const departamentosRoutes = require("./controllers/departamentosRoutes");
 const loginRoutes = require("./controllers/loginRoutes");
 const logoutRoutes = require("./controllers/logoutRoutes");
 const turmasRoutes = require("./controllers/turmasRoutes");
-const pool = require("./db"); // Importa o pool do módulo db.js
+const perfilRoutes = require("./controllers/perfilRoutes");
+const pool = require("./configDB"); // Importa o pool do módulo db.js
 const auth = require("./util/auth"); // Importa o arquivo de autenticação
 const cookieParser = require("cookie-parser");
 const app = express();
@@ -39,6 +40,8 @@ app.use("/", departamentosRoutes);
 app.use("/", turmasRoutes);
 // Registrar as rotas definidas no logoutRoute.js
 app.use("/", logoutRoutes);
+// Registrar as rotas definidas no perfilRoutes.js
+app.use("/", perfilRoutes);
 ///# Fim das rotas autenticadas
 
 

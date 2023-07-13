@@ -2,7 +2,7 @@
 
 const express = require("express");
 const router = express.Router();
-const pool = require("../db"); // Importa o pool do módulo db.js
+const pool = require("../configDB"); // Importa o pool do módulo db.js
 
 router.get("/estudantes", (req, res) => {
   const query = "SELECT * FROM estudantes";

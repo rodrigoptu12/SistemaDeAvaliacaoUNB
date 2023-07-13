@@ -10,14 +10,15 @@
       <a href="/" class="logo">Avaliações UNB</a>
       <div class="header-right">
         <% if (user) { %>
-        <a href="/disciplinas">Disciplina</a>
+        <a href="/turmas">Turmas</a>
         <a href="/estudantes">Estudante</a>
         <a href="/departamentos">Departamento</a>
+        <a href="/perfil">Perfil</a>
         <a href="/logout">Logout</a>
         <% } else { %>
         <button class="login-button" onclick="openLoginPopup()">Login</button>
         <% } %>
-      </div>    
+      </div>
     </div>
 
     <!-- Image studant na esquerda da pagina -->
@@ -41,7 +42,7 @@
         <!-- Add your login form here -->
         <h2>Login</h2>
         <form class="login-form" method="POST" action="/login">
-          <label for="username">Username:</label>
+          <label for="username">Email:</label>
           <input
             type="text"
             id="username"
@@ -67,7 +68,7 @@
         <span class="close" onclick="closeRegisterPopup()">&times;</span>
         <!-- Add your registration form here -->
         <h2>Register</h2>
-        <form class="register-form" method="POST" action="/estudantes">
+        <form class="register-form" method="POST" action="/register">
           <label for="name">Name:</label>
           <input type="text" id="name" name="name" required /><br /><br />
           <label for="email">Email:</label>

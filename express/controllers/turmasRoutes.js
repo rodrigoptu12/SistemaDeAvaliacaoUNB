@@ -2,9 +2,9 @@
 
 const express = require("express");
 const router = express.Router();
-const pool = require("../db"); // Importa o pool do módulo db.js
+const pool = require("../configDB"); // Importa o pool do módulo db.js
 
-router.get("/disciplinas", (req, res) => {
+router.get("/turmas", (req, res) => {
   const query =
     "SELECT Turmas.*, Disciplinas.nome AS nome_disciplina, Professores.nome AS nome_professor FROM Turmas JOIN Disciplinas ON Turmas.disciplina_id = Disciplinas.id JOIN Professores ON Turmas.professor_id = Professores.id;";
 
@@ -19,6 +19,63 @@ router.get("/disciplinas", (req, res) => {
 
     const disciplinas = result.rows;
     res.render("turmas", { disciplinas, mensagem: null });
+  });
+});
+
+router.get("/turmas/:id/avaliacoes", (req, res) => {
+  const { id } = req.params;
+  const user = req.user;
+  const turma_id = id;
+  const query =
+    "SELECT a.*, e.nome AS nome_aluno FROM Avaliacoes a INNER JOIN Estudantes e ON a.estudante_id = e.id WHERE a.turma_id = $1";
+  pool.query(query, [id], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Falha ao obter as avaliações.");
+    }
+    if (result.rowCount > 0) {
+      const avaliacoes = result.rows;
+      return res.render("avaliacoes", {
+        avaliacoes,
+        user,
+        turma_id,
+        mensagem: null,
+      });
+    }
+    return res.render("avaliacoes", { avaliacoes: [], user, turma_id, mensagem: null });  
+  });
+});
+
+
+// criar avaliação
+router.post("/turmas/:id/avaliacoes", (req, res) => {
+  const { descricao, nota, turma_id, estudante_id } = req.body;
+  const query =
+    "INSERT INTO Avaliacoes (estudante_id, turma_id, comentario, nota) VALUES ($1, $2, $3, $4)";
+  pool.query(
+    query,
+    [estudante_id, turma_id, descricao, nota],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.json({ mensagem: "Falha ao criar avaliação." });
+      }
+      return res.redirect(`/turmas/${turma_id}/avaliacoes`);
+    }
+  );
+});
+
+// Deletar avaliação
+
+router.delete("/turmas/:id/avaliacoes/:id_avaliacao", (req, res) => {
+  const { id, id_avaliacao } = req.params;
+  const query = "DELETE FROM Avaliacoes WHERE id = $1";
+  pool.query(query, [id_avaliacao], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.json({ mensagem: "Falha ao deletar avaliação." });
+    }
+    return res.redirect(`/turmas/${id}/avaliacoes`);
   });
 });
 

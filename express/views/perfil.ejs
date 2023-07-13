@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Perfil do Usuário</title>
+    <link rel="stylesheet" href="/styles/perfil.css" />
+    <style></style>
+  </head>
+  <body>
+    <div class="header">
+      <div>
+        <a href="/" class="logo">Avaliações UNB</a>
+      </div>
+      <div class="header-right">
+        <a href="/turmas">Turmas</a>
+        <a href="/estudantes">Estudante</a>
+        <a href="/departamentos">Departamento</a>
+        <a href="/perfil">Perfil</a>
+        <a href="/logout">Logout</a>
+      </div>
+    </div>
+    <div class="profile-card">
+      <div>
+        <h2>Perfil do Usuário</h2>
+        <p><strong>Nome:</strong> <%= user.nome %></p>
+        <p><strong>Email:</strong> <%= user.email %></p>
+        <p><strong>Matricula:</strong> <%= user.matricula %></p>
+        <p><strong>Curso:</strong> <%= user.curso %></p>
+      </div>
+      <div>
+        <!-- imagen do usuario se tiver, ou uma default -->
+        <% if (user.imagem) { %>
+        <img  class="imgUser" src="<%= imagem %>" alt="Imagem do usuário" />
+        <% } else { %>
+        <img
+          class="imgUser"
+          src="/assets/perfil/defaultUser.png"
+          alt="Imagem do usuário"
+        />
+        <% } %>
+        <form id="uploadForm" enctype="multipart/form-data">
+          <input
+            class="custom-file-input"
+            type="file"
+            id="imageInput"
+            name="image"
+            accept="image/*"
+          />
+          <button class="btn-edit" type="submit">Enviar</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("uploadForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const formData = new FormData();
+          const imageInput = document.getElementById("imageInput");
+          formData.append("image", imageInput.files[0]);
+
+          fetch("/perfil/upload", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Falha ao enviar a imagem.");
+              }
+              console.log("Imagem enviada com sucesso.");
+              location.href = "/perfil";
+              // Lógica adicional após o envio bem-sucedido da imagem
+            })
+            .catch((error) => {
+              console.error(error);
+              // Lógica para lidar com erros
+            });
+        });
+    </script>
+  </body>
+</html>

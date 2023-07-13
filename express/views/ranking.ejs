@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ranking de Médias das Turmas</title>
+    <link rel="stylesheet" href="/styles/ranking.css" />
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/" class="logo">Avaliações UNB</a>
+      <div class="header-right">
+        <a href="/turmas">Turmas</a>
+        <a href="/estudantes">Estudante</a>
+        <a href="/departamentos">Departamento</a>
+        <a href="/perfil">Perfil</a>
+        <a href="/ranking">Ranking</a>
+        <a href="/logout">Logout</a>
+      </div>
+    </div>
+    <h1>Ranking de Médias das Turmas</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Disciplina</th>
+          <th>Turma</th>
+          <th>Média de Notas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Os dados do ranking devem ser preenchidos aqui -->
+        <% ranking.forEach(function(turma) { %>
+        <tr>
+          <td><%= turma.disciplina %></td>
+          <td><%= turma.turma %></td>
+          <td>
+            <% if (turma.media_notas !== null && turma.media_notas !==
+            undefined) { %> <%= turma.media_notas %> <% } else { %>
+            N/A <% } %>
+          </td>
+        </tr>
+        <% }); %>
+        <!-- Repetir as linhas de acordo com os dados do ranking -->
+      </tbody>
+    </table>
+  </body>
+</html>

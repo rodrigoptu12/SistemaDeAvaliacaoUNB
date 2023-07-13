@@ -22,7 +22,9 @@ DROP TABLE IF EXISTS Departamento CASCADE;
 -- Criação da tabela Departamento
 CREATE TABLE Departamento (
     id SERIAL PRIMARY KEY,
-    nome VARCHAR(100)
+    nome VARCHAR(100),
+    departamento_id INT,
+    FOREIGN KEY (departamento_id) REFERENCES Departamento(id)
 );
 
 -- Verificar se a tabela Disciplinas existe e, se sim, excluí-la

@@ -6,6 +6,7 @@ const loginRoutes = require("./controllers/loginRoutes");
 const logoutRoutes = require("./controllers/logoutRoutes");
 const turmasRoutes = require("./controllers/turmasRoutes");
 const perfilRoutes = require("./controllers/perfilRoutes");
+const rankingRoutes = require("./controllers/rankingRoutes");
 const pool = require("./configDB"); // Importa o pool do módulo db.js
 const auth = require("./util/auth"); // Importa o arquivo de autenticação
 const cookieParser = require("cookie-parser");
@@ -18,16 +19,14 @@ app.set("view engine", "ejs");
 app.set("views", "./views");
 // Registrar as rotas definidas no loginRoute.js
 app.use("/", loginRoutes);
-
-
-
-
+// Registrar as rotas definidas no rankingRoutes.js
+app.use("/", rankingRoutes);
 
 // Registrar o middleware de autenticação para todas as rotas abaixo
 app.use(auth.isAuthenticated);
 
 app.get("/", (req, res) => {
-  const user = req.user
+  const user = req.user;
   res.render("home", { user });
 });
 
@@ -43,7 +42,6 @@ app.use("/", logoutRoutes);
 // Registrar as rotas definidas no perfilRoutes.js
 app.use("/", perfilRoutes);
 ///# Fim das rotas autenticadas
-
 
 app.listen(3000, () => {
   console.log("Servidor rodando em http://localhost:3000");

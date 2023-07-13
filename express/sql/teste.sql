@@ -1,0 +1,2 @@
+-- call procedure
+CALL "AtualizarMediaNotas"();

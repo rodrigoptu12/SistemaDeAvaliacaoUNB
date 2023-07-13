@@ -1,45 +1,29 @@
-// Ler arquivos .sql na pasta ./sql e executar
-
 const fs = require("fs");
 const pool = require("./configDB");
 
-// Ler Todos os arquivos assessments.sql, basedata.sql, procedure.sql e view.sql
-
-const sql = fs.readFileSync("./sql/assessment.sql").toString();
-pool.query(sql, (err, res) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Tabela assessments criada com sucesso!");
+// Função para ler e executar um arquivo SQL
+const executeSQLFile = async (filePath, successMessage) => {
+  try {
+    const sql = fs.readFileSync(filePath).toString();
+    await pool.query(sql);
+    console.log(successMessage);
+  } catch (err) {
+    console.error(err);
   }
-});
+};
 
-const sql2 = fs.readFileSync("./sql/basedata.sql").toString();
-pool.query(sql2, (err, res) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Dados inseridos com sucesso!");
+// Executar arquivos SQL
+const sqlFiles = [
+  { filePath: "./sql/assessment.sql", successMessage: "Tabela assessments criada com sucesso!" },
+  { filePath: "./sql/basedata.sql", successMessage: "Dados inseridos com sucesso!" },
+  { filePath: "./sql/procedure.sql", successMessage: "Procedure criada com sucesso!" },
+  { filePath: "./sql/view.sql", successMessage: "View criada com sucesso!" }
+];
+
+async function runSQLFiles() {
+  for (const sqlFile of sqlFiles) {
+    await executeSQLFile(sqlFile.filePath, sqlFile.successMessage);
   }
-});
+}
 
-const sql3 = fs.readFileSync("./sql/procedure.sql").toString();
-pool.query(sql3, (err, res) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Procedure criada com sucesso!");
-  }
-});
-
-const sql4 = fs.readFileSync("./sql/view.sql").toString();
-pool.query(sql4, (err, res) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("View criada com sucesso!");
-  }
-});
-
-
-
+runSQLFiles();

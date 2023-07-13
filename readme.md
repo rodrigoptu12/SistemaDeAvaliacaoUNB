@@ -51,7 +51,7 @@ Para criar as tabelas do banco de dados, execute o script `initBD.sql`
 
 4. Inicie o servidor:
     
-            npm start  
+    node app.js 
 
 5. Acesse o sistema em seu navegador através do endereço `http://localhost:3000`.
 

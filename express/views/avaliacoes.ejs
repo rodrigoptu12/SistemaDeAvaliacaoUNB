@@ -15,8 +15,11 @@
       </div>
       <div class="header-right">
         <a href="/turmas">Turmas</a>
+
+        <% if (user.isadmin) { %>
         <a href="/estudantes">Estudante</a>
         <a href="/departamentos">Departamento</a>
+        <% } %>
         <a href="/perfil">Perfil</a>
         <a href="/ranking">Ranking</a>
         <a href="/logout">Logout</a>
@@ -62,7 +65,7 @@
           <div class="nota">Nota: <%= avaliacao.nota %></div>
         </div>
         <!-- apenas se o id do user for igual ao id da avaliação -->
-        <% if (user.id == avaliacao.estudante_id) { %>
+        <% if (user.id == avaliacao.estudante_id || user.isadmin == true) { %>
 
         <button
           class="red-button"

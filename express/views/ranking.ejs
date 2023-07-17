@@ -19,12 +19,18 @@
     <div class="header">
       <a href="/" class="logo">Avaliações UNB</a>
       <div class="header-right">
+        <% if (user) { %>
         <a href="/turmas">Turmas</a>
+        <% if (user.isadmin) { %>
         <a href="/estudantes">Estudante</a>
         <a href="/departamentos">Departamento</a>
+        <% } %>
         <a href="/perfil">Perfil</a>
-        <a href="/ranking">Ranking</a>
         <a href="/logout">Logout</a>
+        <% } else { %>
+        <a href="/ranking">Ranking</a>
+        <a href="/">Home</a>
+        <% } %>
       </div>
     </div>
     <h1>Ranking de Médias das Turmas</h1>
@@ -45,13 +51,13 @@
           <td><%= turma.turma %></td>
           <td>
             <% if (turma.media_notas !== null && turma.media_notas !==
-            undefined) { %> <%= turma.media_notas %> <% } else { %>
-            N/A <% } %>
+            undefined) { %> <%= turma.media_notas %> <% } else { %> N/A <% } %>
           </td>
         </tr>
         <% }); %>
         <!-- Repetir as linhas de acordo com os dados do ranking -->
       </tbody>
     </table>
+    
   </body>
 </html>

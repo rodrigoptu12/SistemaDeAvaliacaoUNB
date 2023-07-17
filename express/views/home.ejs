@@ -11,8 +11,10 @@
       <div class="header-right">
         <% if (user) { %>
         <a href="/turmas">Turmas</a>
+        <% if (user.isadmin) { %>
         <a href="/estudantes">Estudante</a>
         <a href="/departamentos">Departamento</a>
+        <% } %>
         <a href="/perfil">Perfil</a>
         <a href="/logout">Logout</a>
         <% } else { %>

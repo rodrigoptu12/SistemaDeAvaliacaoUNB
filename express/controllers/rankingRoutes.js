@@ -7,13 +7,14 @@ const pool = require("../configDB"); // Importa o pool do módulo db.js
 // Rota do ranking
 router.get("/ranking", (req, res) => {
   const query = `SELECT * FROM TurmasMediaNotas`;
+  const user = req.user;
   pool.query(query, (err, result) => {
     if (err) {
       console.log(err);
       res.status(400).send("Erro ao buscar ranking");
     } else {
       const ranking = result.rows; // Modificação: Convertemos o resultado para um array de objetos
-      res.render("ranking", { ranking }); // Modificação: Passamos o array de objetos como variável 'ranking' para a view
+      res.render("ranking", { user, ranking }); // Modificação: Passamos o array de objetos como variável 'ranking' para a view
     }
   });
 });

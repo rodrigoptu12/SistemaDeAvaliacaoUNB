@@ -30,11 +30,11 @@ INSERT INTO
   Estudantes (nome, email, matricula, curso, senha, isAdmin)
 VALUES
   (
-    'Carlos Santos',
-    'carlos.santos@example.com',
+    'Admin',
+    'admin@admin.com',
     '20210003',
     'Administração',
-    'abcdef',
+    '123456',
     TRUE
   );
 
@@ -42,33 +42,46 @@ VALUES
 INSERT INTO
   Departamento (nome, departamento_id)
 VALUES
-  ('Departamento A', NULL);
+  (
+    'CENTRO DE APOIO AO DESENVOLVIMENTO TECNOLÓGICO - BRASÍLIA',
+    NULL
+  );
 
 INSERT INTO
   Departamento (nome, departamento_id)
 VALUES
-  ('Departamento B', NULL);
+  (
+    'CENTRO DE DESENVOLVIMENTO SUSTENTÁVEL - BRASÍLIA',
+    NULL
+  );
 
 INSERT INTO
   Departamento (nome, departamento_id)
 VALUES
-  ('Departamento C', NULL);
+  (
+    'CENTRO DE EXCELÊNCIA EM TURISMO - BRASÍLIA',
+    NULL
+  );
 
 -- Inserções para a tabela Disciplinas
 INSERT INTO
   Disciplinas (id, nome, departamento_id)
 VALUES
-  ('D001', 'Disciplina 1', 1);
+  ('D001', 'TECNOLOGIA SOCIAL E INOVAÇÃO', 1);
 
 INSERT INTO
   Disciplinas (id, nome, departamento_id)
 VALUES
-  ('D002', 'Disciplina 2', 1);
+  ('D002', 'AGRICULTURA E MEIO AMBIENTE', 1);
 
 INSERT INTO
   Disciplinas (id, nome, departamento_id)
 VALUES
-  ('D003', 'Disciplina 3', 2);
+  (
+    'D003',
+    'INTRODUÇÃO AO DESENVOLVIMENTO SUSTENTÁVEL',
+    2
+  );
 
 -- Inserções para a tabela Professores
 INSERT INTO

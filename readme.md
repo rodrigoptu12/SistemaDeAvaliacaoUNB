@@ -1,6 +1,6 @@
 # Sistema de Avaliação de Disciplinas e Professores da UnB
 
-Este repositório contém o código-fonte para um sistema de avaliação de disciplinas e professores da Universidade de Brasília (UnB). O sistema foi desenvolvido utilizando a linguagem JavaScript e o framework Express.js para o backend, e HTML, CSS e JavaScript para o frontend.
+Este repositório contém o código-fonte para um sistema de avaliação de disciplinas e professores da Universidade de Brasília (UnB). O sistema foi desenvolvido utilizando a linguagem JavaScript e o framework Express.js para o backend, e HTML, CSS e JavaScript para o frontend. Framework Express e banco de dados PostgreSQL.
 
 ## Pré-requisitos
 
@@ -38,7 +38,7 @@ module.exports = {
   }
 };
 ```
-Certifique-se de ter um servidor de banco de dados MySQL em execução e que o banco de dados especificado esteja criado.
+Certifique-se de ter um servidor de banco de dados PostgreSQL em execução e que o banco de dados especificado esteja criado.
 ## Criação das tabelas do banco de dados
 
 Para criar as tabelas do banco de dados, execute o script `initBD.sql` 

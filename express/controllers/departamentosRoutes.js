@@ -7,7 +7,7 @@ const pool = require("../configDB"); // Importa o pool do módulo db.js
 // Listar todos os departamentos
 router.get("/departamentos", (req, res) => {
   const query = "SELECT * FROM departamento";
-
+  const user = req.user;
   pool.query(query, (err, result) => {
     if (err) {
       console.error(err);
@@ -18,7 +18,7 @@ router.get("/departamentos", (req, res) => {
     }
 
     const departamentos = result.rows;
-    res.render("departamentos", { departamentos, mensagem: null });
+    res.render("departamentos", { user, departamentos, mensagem: null });
   });
 });
 

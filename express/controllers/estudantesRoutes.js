@@ -6,7 +6,7 @@ const pool = require("../configDB"); // Importa o pool do módulo db.js
 
 router.get("/estudantes", (req, res) => {
   const query = "SELECT * FROM estudantes";
-
+  const user = req.user;
   pool.query(query, (err, result) => {
     if (err) {
       console.error(err);
@@ -17,7 +17,7 @@ router.get("/estudantes", (req, res) => {
     }
 
     const estudantes = result.rows;
-    res.render("estudantes", { estudantes, mensagem: null });
+    res.render("estudantes", {user, estudantes, mensagem: null });
   });
 });
 

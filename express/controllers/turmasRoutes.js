@@ -7,7 +7,7 @@ const pool = require("../configDB"); // Importa o pool do módulo db.js
 router.get("/turmas", (req, res) => {
   const query =
     "SELECT Turmas.*, Disciplinas.nome AS nome_disciplina, Professores.nome AS nome_professor FROM Turmas JOIN Disciplinas ON Turmas.disciplina_id = Disciplinas.id JOIN Professores ON Turmas.professor_id = Professores.id;";
-
+  const user = req.user;
   pool.query(query, (err, result) => {
     if (err) {
       console.error(err);
@@ -18,7 +18,7 @@ router.get("/turmas", (req, res) => {
     }
 
     const disciplinas = result.rows;
-    res.render("turmas", { disciplinas, mensagem: null });
+    res.render("turmas", { user, disciplinas, mensagem: null });
   });
 });
 
@@ -78,5 +78,21 @@ router.delete("/turmas/:id/avaliacoes/:id_avaliacao", (req, res) => {
     return res.redirect(`/turmas/${id}/avaliacoes`);
   });
 });
+
+// Editar avaliação
+
+router.put("/turmas/:id/avaliacoes/:id_avaliacao", (req, res) => {
+  const { id, id_avaliacao } = req.params;
+  const { descricao, nota } = req.body;
+  const query = "UPDATE Avaliacoes SET comentario = $1, nota = $2 WHERE id = $3";
+  pool.query(query, [descricao, nota, id_avaliacao], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.json({ mensagem: "Falha ao editar avaliação." });
+    }
+    return res.redirect(`/turmas/${id}/avaliacoes`);
+  });
+});
+
 
 module.exports = router;
